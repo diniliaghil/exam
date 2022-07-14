@@ -40,7 +40,7 @@
       mode: 0644
   - name: 
     command:
-       cmd: /usr/local/bin/docker-compose up -d -f /home/ansible/docker-compose.yml 
+       cmd: /usr/local/bin/docker-compose -f /home/ansible/docker-compose.yml  up -d  
   - name: open firewalld
     firewalld:
       port: 8001/tcp
