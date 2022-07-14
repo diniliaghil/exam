@@ -5,7 +5,7 @@ services:
     ports:
      - "6379:6379"
   node-app:
-    image: deinmaarnix/{{JOB_NAME}}:latest
+    image: deinmaarnix/exam:latest
     ports:
      - "8001:8081"
     depends_on:
