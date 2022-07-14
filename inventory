@@ -1,0 +1,11 @@
+[lbservers]
+control ansible_connection=local
+[webservers]
+webserver2  
+webserver1
+[webserver1]
+webserver1 
+[webserver2]
+webserver2
+
+

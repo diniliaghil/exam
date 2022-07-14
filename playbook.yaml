@@ -1,0 +1,50 @@
+- name: install and run containers
+  hosts: webserver1
+  tasks:
+  - name: install packages
+    yum:
+      name: 
+        - yum-utils
+        - python3-pip
+      state: present
+  - name: "Configuring docker-ce repo"
+    get_url:
+      url: https://download.docker.com/linux/centos/docker-ce.repo
+      dest: /etc/yum.repos.d/docker-ce.repo
+      mode: 0644
+  - name: install docker
+    yum:
+      name: docker-ce
+      state: present
+  - name: start docker daemon
+    service:
+      name: docker
+      state: started
+      enabled: true
+  - name: install docker module
+    pip:
+      name: docker
+  - name: copy docker-compose binary
+    copy:
+      src: ./docker-compose
+      dest: /usr/local/bin/docker-compose
+      owner: root
+      group: root
+      mode: u+rw,g-wx,o-rwx
+  - name: copy docker-compose.yaml
+    copy:
+      src: ./docker-compose.yaml
+      dest: /home/ansible/docker-compose.yaml
+      owner: ansible
+      group: ansible
+      mode: 0644
+  - name: 
+    command:
+       cmd: docker-compose up -d -f /home/ansible/docker-compose.yaml 
+  - name: open firewalld
+    firewalld:
+      port: 8{{BUILD_NUMBER}}/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+

@@ -1,0 +1,33 @@
+- name: install and run containers
+  hosts: webservers
+  tasks:
+  - name: install packages
+    yum:
+      name: 
+        - yum-utils
+        - python3-pip
+      state: present
+  - name: "Configuring docker-ce repo"
+    get_url:
+      url: https://download.docker.com/linux/centos/docker-ce.repo
+      dest: /etc/yum.repos.d/docker-ce.repo
+      mode: 0644
+  - name: install docker
+    yum:
+      name: docker-ce
+      state: present
+  - name: start docker daemon
+    service:
+      name: docker
+      state: started
+      enabled: true
+  - name: install docker module
+    pip:
+      name: docker
+  - name: Another symbolic mode example, adding some permissions and removing others
+    copy:
+      src: /home/ansible/docker-compose
+      dest: /usr/local/bin/docker-compose
+      owner: root
+      group: root
+      mode: u+rw,g-wx,o-rwx

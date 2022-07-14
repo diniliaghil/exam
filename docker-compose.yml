@@ -5,8 +5,8 @@ services:
     ports:
      - "6379:6379"
   node-app:
-    image: test
+    image: deinmaarnix/{{JOB_NAME}}:{{BUILD_NUMBER}}
     ports:
-     - "8000:8081"
+     - "8{{BUILD_NUMBER}}:8081"
     depends_on:
      - "redis-server"   
