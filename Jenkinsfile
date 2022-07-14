@@ -7,7 +7,7 @@ pipeline{
         stage("deploy container"){
             steps{
 		     withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'password', usernameVariable: 'username')]) {
-                sh "ansible-playbook --private-key /home/ansible/.ssh/id_rsa -i inventory -u ansible playbook.yaml -e JOB_NAME=$JOB_NAME -e BUILD_NUMBER=$BUILD_NUMBER -e username=$username -e password=$password"
+                sh "ansible-playbook --private-key /var/lib/jenkins/.ssh -i inventory -u ansible playbook.yaml -e JOB_NAME=$JOB_NAME -e BUILD_NUMBER=$BUILD_NUMBER -e username=$username -e password=$password"
             }
          }
        }
