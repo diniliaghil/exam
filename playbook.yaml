@@ -33,17 +33,17 @@
       mode: u+rw,g-wx,o-rwx
   - name: copy docker-compose.yaml
     copy:
-      src: ./docker-compose.yaml
-      dest: /home/ansible/docker-compose.yaml
+      src: ./docker-compose.yml
+      dest: /home/ansible/docker-compose.yml
       owner: ansible
       group: ansible
       mode: 0644
   - name: 
     command:
-       cmd: docker-compose up -d -f /home/ansible/docker-compose.yaml 
+       cmd: docker-compose up -d -f /home/ansible/docker-compose.yml 
   - name: open firewalld
     firewalld:
-      port: 8{{BUILD_NUMBER}}/tcp
+      port: 8001/tcp
       permanent: yes
       state: enabled
       immediate: yes
