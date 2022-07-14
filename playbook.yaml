@@ -1,5 +1,5 @@
 - name: install and run containers
-  hosts: webserver1
+  hosts: webservers
   tasks:
   - name: install packages
     yum:
@@ -30,7 +30,7 @@
       dest: /usr/local/bin/docker-compose
       owner: root
       group: root
-      mode: u+rw,g-wx,o-rwx
+      mode: 0777
   - name: copy docker-compose.yaml
     copy:
       src: ./docker-compose.yml
@@ -40,7 +40,7 @@
       mode: 0644
   - name: 
     command:
-       cmd: docker-compose up -d -f /home/ansible/docker-compose.yml 
+       cmd: /usr/local/bin/docker-compose up -d -f /home/ansible/docker-compose.yml 
   - name: open firewalld
     firewalld:
       port: 8001/tcp
