@@ -1,7 +1,12 @@
 version: '3'
 services:
   redis-server:
-    image:
-  node-app:
-    image:
+    image: redis
     ports:
+     - "6379:6379"
+  node-app:
+    image: test
+    ports:
+     - "8000:8081"
+    depends_on:
+     - "redis-server"   
